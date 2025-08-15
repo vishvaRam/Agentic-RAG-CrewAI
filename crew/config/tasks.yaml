@@ -1,0 +1,69 @@
+draft_creation_task:
+  description: >
+    Marcus, use ONLY the RAG Tool to extract insights and create a content blueprint for "{topic}".
+    
+    **Requirements:**
+    - Query RAG Tool extensively about {topic}
+    - Ask: "What are the latest trends in {topic}?"
+    - Ask: "What are the benefits and challenges of {topic}?"
+    - Ask: "What do experts say about {topic}?"
+    - Ask: "What are practical applications of {topic}?"
+    
+    **Content Planning:**
+    - Approximate word count: {word_count} words
+    - Target read time: {read_time} minutes
+    - Create engaging content suitable for diverse audiences
+    - Plan for dev.to publishing platform (tech-friendly but accessible)
+
+
+  expected_output: >
+    Content blueprint (500-600 words) with:
+    
+    **Content Strategy:**
+    - Main narrative angle for {topic}
+    - Value proposition for readers
+    - Content approach (technical/accessible balance)
+    
+    **Detailed Outline:**
+    1. Engaging opening hook and introduction
+    2. 5-7 main sections with:
+       - Compelling section titles
+       - Key points to cover (2-3 per section)
+       - Supporting evidence from RAG research
+       - Estimated word distribution to reach ~{word_count} words
+    3. Strong conclusion with engagement elements
+    
+    **Content Elements:**
+    - Key statistics and insights to highlight
+    - Expert quotes or opinions to include
+    - Real-world examples or case studies
+    - Practical takeaways for readers
+    - Structure for ~{read_time} minute read time
+
+final_writing_task:
+  description: >
+    Elena, use ONLY the RAG Tool to write a complete blog post about "{topic}" optimized for dev.to publishing.
+    
+    **CONTENT SPECIFICATIONS:**
+    - Approximate word count: {word_count} words
+    - Target read time: {read_time} minutes
+    - Topic: {topic}
+    
+    **DEV.TO PUBLISHING OPTIMIZATION:**
+    - Write for the dev.to community
+    - Use clean markdown formatting
+    - Create engaging, shareable content
+    - Balance technical depth with accessibility
+    - Include practical insights and actionable takeaways
+    
+    **Content Requirements:**
+    - Use ONLY RAG Tool to access all research insights
+    - Follow Marcus's content blueprint structure
+    - Query RAG Tool for specific information as you write
+    - Create compelling, well-researched content
+    - Ensure factual accuracy using RAG sources
+
+  expected_output: >
+    ONLY publish-ready markdown content for dev.to blog post.
+    Include all necessary metadata (title, description, tags) for dev.to publishing.
+    

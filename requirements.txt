@@ -1,0 +1,37 @@
+# Python Dependencies for YouTube Blog Automation System
+
+# Core CrewAI Framework
+crewai
+crewai-tools
+
+langchain_huggingface
+sentence-transformers
+
+# Google Gemini LLM
+google-generativeai
+litellm
+
+# YouTube Integration
+youtube-transcript-api
+google-api-python-client
+google-auth-oauthlib
+google-auth-httplib2
+
+# Stock Image APIs
+requests
+urllib3
+
+# Environment and Configuration
+python-dotenv
+pyyaml
+
+# Content Processing
+markdown
+beautifulsoup4
+
+# Utilities
+pathlib2
+rich # For better console output
+click  # For CLI improvements
+
+tavily-python

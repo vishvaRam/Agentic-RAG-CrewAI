@@ -4,6 +4,10 @@ warnings.filterwarnings('ignore')
 from crewai import LLM, Agent, Crew, Process, Task  # noqa: E402
 from crewai.project import CrewBase, agent, crew, task# noqa: E402
 from tools.rag_tool import rag_tool# noqa: E402
+from tools.image_search_tool import pexels_cover_tool  # noqa: E402
+from tools.devto_publisher_tool import devto_publisher_tool
+from dotenv import load_dotenv  # noqa: E402
+load_dotenv()
 
 
 @CrewBase
@@ -15,6 +19,8 @@ class BlogWritingCrew:
 
     def __init__(self):
         self.rag_tool = rag_tool
+        self.pexels_cover_tool = pexels_cover_tool
+        self.devto_publisher_tool = devto_publisher_tool
         self.gemini_flash = LLM(
             model="gemini/gemini-2.5-flash",
             api_key=os.getenv("GEMINI_API_KEY"),
@@ -36,18 +42,31 @@ class BlogWritingCrew:
     def senior_writer(self) -> Agent:
         return Agent(
             config=self.agents_config["senior_writer"],  # type: ignore
-            tools=[self.rag_tool],
+            tools=[self.rag_tool, self.pexels_cover_tool],
             llm=self.gemini_flash,
             verbose=True,
             allow_delegation=True,
-            max_iter=6,
+            max_iter=8
         )
+    
+    @agent
+    def devto_publisher(self) -> Agent:
+        return Agent(
+            config=self.agents_config["devto_publisher"],  # type: ignore
+            tools=[devto_publisher_tool],
+            llm=self.gemini_flash, 
+            verbose=True,
+            allow_delegation=False,
+            max_iter=3
+        )
+
 
     @task
     def draft_creation_task(self) -> Task:
         return Task(
             config=self.tasks_config["draft_creation_task"],  # type: ignore
             agent=self.draft_creator(),
+            markdown=True,
             output_file="output/draft_creation_task.md",
         )
 
@@ -57,8 +76,19 @@ class BlogWritingCrew:
             config=self.tasks_config["final_writing_task"],  # type: ignore
             agent=self.senior_writer(),
             context=[self.draft_creation_task()],
+            markdown=True,
             output_file="output/final_writing_task.md",
         )
+    
+    @task
+    def publishing_task(self) -> Task:
+        return Task(
+            config=self.tasks_config["publishing_task"],  # type: ignore
+            agent=self.devto_publisher(),
+            context=[self.final_writing_task()],
+            output_file="output/publishing_task.json",
+        )
+    
 
     @crew
     def crew(self) -> Crew:
@@ -67,14 +97,7 @@ class BlogWritingCrew:
             tasks=self.tasks,  # type: ignore
             process=Process.sequential,
             verbose=True,
-            memory=True,
-            embedder={
-                "provider": "google",
-                "config": {
-                    "model": "models/embedding-001",
-                    "api_key": os.getenv("GEMINI_API_KEY")
-                }
-            },
-            max_rpm=30,
+            memory=False,
+            max_rpm=40,            
             language="en",  # type: ignore
         )

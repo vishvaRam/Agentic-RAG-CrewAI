@@ -42,28 +42,53 @@ draft_creation_task:
 
 final_writing_task:
   description: >
-    Elena, use ONLY the RAG Tool to write a complete blog post about "{topic}" optimized for dev.to publishing.
-    
-    **CONTENT SPECIFICATIONS:**
-    - Approximate word count: {word_count} words
-    - Target read time: {read_time} minutes
-    - Topic: {topic}
-    
-    **DEV.TO PUBLISHING OPTIMIZATION:**
-    - Write for the dev.to community
-    - Use clean markdown formatting
-    - Create engaging, shareable content
-    - Balance technical depth with accessibility
-    - Include practical insights and actionable takeaways
-    
-    **Content Requirements:**
-    - Use ONLY RAG Tool to access all research insights
-    - Follow Marcus's content blueprint structure
-    - Query RAG Tool for specific information as you write
-    - Create compelling, well-researched content
-    - Ensure factual accuracy using RAG sources
+    Elena, write a complete blog post about "{topic}" using the provided draft as your primary guide.
+
+    **PRIMARY APPROACH:**
+    - Use the draft creation task output as your main content source
+    - Enhance and expand the draft into a polished blog post
+    - Only use RAG Tool for specific fact-checking or additional details
+
+    **COVER IMAGE REQUIREMENTS:**
+    - Use the Dev.to Cover Image Finder tool to find a suitable cover image
+    - Search for images related to "{topic}"
+    - If no suitable topic-specific image found, tool will automatically fallback to tech images
+    - Include the cover image URL in the frontmatter
+
+    **ENDING REQUIREMENT:**
+    - Instead of a 'reference links' or 'internal linking' section, finish the blog with a short, impactful conclusion. 
+    - The conclusion should summarize the main points and leave the reader with a clear final thought or call to action.
+
+    **SEO REQUIREMENTS:**
+    - Write with SEO in mind: include clear headings (H1, H2, H3), use target keywords naturally
+    - Ensure meta description is concise, compelling, and keyword-rich
+    - Use short paragraphs, bullet points, and numbered lists where useful
 
   expected_output: >
-    ONLY publish-ready markdown content for dev.to blog post.
-    Include all necessary metadata (title, description, tags) for dev.to publishing.
-    
+    ONLY publish-ready markdown content for a dev.to blog post with cover image.
+    Must include:
+    - SEO-optimized title
+    - SEO-friendly meta description  
+    - Proper tags
+    - **cover_image:** URL from Pexels search
+    - Attribution for cover image in the article
+    - End with an engaging, concise conclusion in the final paragraph (not with a reference links section)
+
+    Your final answer MUST be a fully SEO-optimized dev.to article in markdown format, ending with a short, strong conclusion.
+
+
+publishing_task:
+  description: >
+    Use the Dev.to Publisher tool to publish the completed blog post on Dev.to.
+
+    - Take the blog markdown file from the Senior Writer as input.
+    - Use the Dev.to Publisher tool to extract title, tags, and cover image from the frontmatter and submit the post.
+    - Set publishing status to 'published' by default.
+    - If publishing fails, include clear error reporting in the output.
+
+  expected_output: >
+    JSON result of the publishing attempt, including the Dev.to URL if published successfully. Must include:
+    - The article URL on Dev.to
+    - Article ID on Dev.to
+    - Published status
+    - Any error details if publishing failed

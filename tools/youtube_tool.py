@@ -13,6 +13,7 @@ from collections import Counter
 from pydantic import Field
 from crewai.tools import BaseTool
 from googleapiclient.discovery import build
+from textwrap import wrap
 from youtube_transcript_api import YouTubeTranscriptApi, TranscriptsDisabled, NoTranscriptFound
 
 class YouTubeSearchTool(BaseTool):
@@ -280,9 +281,9 @@ class YouTubeTranscriptTool(BaseTool):
     def _save_full_transcript(self, video_id: str, full_text: str, language_code: str, source_type: str) -> None:
         """
         Append the full transcript to output/transcriptions.txt with clear delimiters.
+        Splits transcript into smaller chunks for better RAG indexing.
         """
-        # Ensure output dir exists
-        os.makedirs(self.OUTPUT_DIR, exist_ok=True)
+        os.makedirs(self.OUTPUT_DIR, exist_ok=True) 
 
         timestamp = datetime.now().isoformat()
         header = [
@@ -295,8 +296,11 @@ class YouTubeTranscriptTool(BaseTool):
         ]
         footer = ["", "===== END TRANSCRIPT =====", ""]
 
-        # Write/append to file
+        # 🔑 Split transcript into smaller chunks (e.g., 500 characters per line)
+        chunks = wrap(full_text, width=500)
+
         with open(self.TRANSCRIPT_FILE, "a", encoding="utf-8") as f:
             f.write("\n".join(header))
-            f.write(full_text + "\n")
-            f.write("\n".join(footer))
+            for chunk in chunks:
+                f.write(chunk.strip() + "\n")
+            f.write("\n".join(footer) + "\n")

@@ -6,5 +6,7 @@ rag_tool = RagTool(
             "provider": "huggingface",
             "config": {"model": "sentence-transformers/all-MiniLM-L6-v2"}
         }
-    }
+    },
 )
+
+

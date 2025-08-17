@@ -67,7 +67,7 @@ class BlogWritingCrew:
             config=self.tasks_config["draft_creation_task"],  # type: ignore
             agent=self.draft_creator(),
             markdown=True,
-            output_file="output/draft_creation_task.md",
+            output_file="output/drafts/draft_creation_{topic}.md",
         )
 
     @task
@@ -77,7 +77,7 @@ class BlogWritingCrew:
             agent=self.senior_writer(),
             context=[self.draft_creation_task()],
             markdown=True,
-            output_file="output/final_writing_task.md",
+            output_file="output/blogs/final_writing_{topic}.md",
         )
     
     @task
@@ -86,7 +86,7 @@ class BlogWritingCrew:
             config=self.tasks_config["publishing_task"],  # type: ignore
             agent=self.devto_publisher(),
             context=[self.final_writing_task()],
-            output_file="output/publishing_task.json",
+            output_file="output/publication/publishing_{topic}.json",
         )
     
 

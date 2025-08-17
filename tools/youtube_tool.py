@@ -72,7 +72,7 @@ class YouTubeSearchTool(BaseTool):
                 })
             
             # Get additional video details
-            videos_response = self.youtube.videos().list(
+            videos_response = self.youtube.videos().list( # type: ignore
                 part='snippet,statistics,contentDetails',
                 id=','.join(video_ids)
             ).execute()
@@ -193,14 +193,15 @@ class YouTubeTranscriptTool(BaseTool):
     description: str = "Extract complete transcript from a YouTube video and save to text file"
 
     # Use ClassVar for class-level constants
-    OUTPUT_DIR: str = "output"
-    TRANSCRIPT_FILE: str = "output/transcriptions.txt"
+    OUTPUT_DIR: str = "output/transcriptions"
 
-    def _run(self, video_id: str, video_description: str = "", language_preference: str = 'en') -> str:
+    def _run(self, video_id: str, video_description: str = "", language_preference: str = 'en',topic: str = "default") -> str:
         """
         Extract the FULL transcript from a YouTube video and save it to output/transcriptions.txt.
         Returns simple status information.
         """
+        transcript_file = f"output/transcriptions/transcript_{topic}.txt"
+
         try:
             full_text = ""
             source_type = ""
@@ -245,7 +246,8 @@ class YouTubeTranscriptTool(BaseTool):
                 video_id=video_id,
                 full_text=full_text,
                 language_code=language_code,
-                source_type=source_type
+                source_type=source_type,
+                file_path=transcript_file.format(topic=topic)
             )
 
             # Return simple status
@@ -256,7 +258,7 @@ class YouTubeTranscriptTool(BaseTool):
                 'source_type': source_type,
                 'language': language_code,
                 'word_count': word_count,
-                'saved_to': self.TRANSCRIPT_FILE,
+                'saved_to': transcript_file.format(topic=topic),
                 'timestamp': datetime.now().isoformat()
             }, indent=2)
 
@@ -267,24 +269,24 @@ class YouTubeTranscriptTool(BaseTool):
                 video_id=video_id,
                 full_text=fallback_text,
                 language_code="n/a",
-                source_type="error-fallback"
+                source_type="error-fallback",
+                file_path=transcript_file.format(topic=topic)
             )
             return json.dumps({
                 'video_id': video_id,
                 'status': 'error',
                 'error': str(e),
                 'source_type': 'error-fallback',
-                'saved_to': self.TRANSCRIPT_FILE,
+                'saved_to': transcript_file.format(topic=topic),
                 'timestamp': datetime.now().isoformat()
             })
 
-    def _save_full_transcript(self, video_id: str, full_text: str, language_code: str, source_type: str) -> None:
+    def _save_full_transcript(self, video_id: str, full_text: str, language_code: str, source_type: str,file_path: str) -> None:
         """
         Append the full transcript to output/transcriptions.txt with clear delimiters.
         Splits transcript into smaller chunks for better RAG indexing.
         """
-        os.makedirs(self.OUTPUT_DIR, exist_ok=True) 
-
+        os.makedirs(self.OUTPUT_DIR, exist_ok=True)         
         timestamp = datetime.now().isoformat()
         header = [
             "===== BEGIN TRANSCRIPT =====",
@@ -296,10 +298,10 @@ class YouTubeTranscriptTool(BaseTool):
         ]
         footer = ["", "===== END TRANSCRIPT =====", ""]
 
-        # 🔑 Split transcript into smaller chunks (e.g., 500 characters per line)
-        chunks = wrap(full_text, width=500)
+        # 🔑 Split transcript into smaller chunks (e.g., 400 characters per line)
+        chunks = wrap(full_text, width=400)
 
-        with open(self.TRANSCRIPT_FILE, "a", encoding="utf-8") as f:
+        with open(file_path, "a", encoding="utf-8") as f:
             f.write("\n".join(header))
             for chunk in chunks:
                 f.write(chunk.strip() + "\n")

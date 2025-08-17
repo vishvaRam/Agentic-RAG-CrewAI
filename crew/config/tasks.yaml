@@ -42,40 +42,76 @@ draft_creation_task:
 
 final_writing_task:
   description: >
-    Elena, write a complete blog post about "{topic}" using the provided draft as your primary guide.
+    Elena, write a complete, SEO-optimized blog post about "{topic}" using the provided draft as your primary guide.
 
     **PRIMARY APPROACH:**
     - Use the draft creation task output as your main content source
-    - Enhance and expand the draft into a polished blog post
+    - Enhance and expand the draft into a polished, SEO-friendly blog post
     - Only use RAG Tool for specific fact-checking or additional details
 
     **COVER IMAGE REQUIREMENTS:**
     - Use the Dev.to Cover Image Finder tool to find a suitable cover image
     - Search for images related to "{topic}"
     - If no suitable topic-specific image found, tool will automatically fallback to tech images
-    - Include the cover image URL in the frontmatter
+    - Include the cover image URL in the frontmatter ONLY
+    - DO NOT embed the cover image again in the article body
+    - DO NOT include image attribution in the article content
+
+
+    **SEO OPTIMIZATION REQUIREMENTS:**
+    
+    *Title & Meta Optimization:*
+    - Create an SEO-optimized title (50-60 characters) that includes primary keyword
+    - Write a compelling meta description (150-160 characters) with target keywords
+    - Use power words like "Complete Guide", "Ultimate", "Essential", "Best Practices"
+    
+    *Keyword Strategy:*
+    - Identify and naturally integrate primary keyword throughout the content
+    - Use 2-3 secondary keywords/related terms
+    - Include keywords in: title, first paragraph, headings, and naturally throughout
+    - Aim for 1-2% keyword density (don't overstuff)
+    
+    **CONTENT STRUCTURE REQUIREMENTS:**
+    - Do NOT include an H1 heading in the markdown content body
+    - The title exists only in the frontmatter
+    - Start content directly with an engaging opening paragraph
+    - Use H2 (##) for main sections, H3 (###) for subsections
+    - Include target keywords in at least 2-3 H2 headings
+
+    *Technical SEO Elements:*
+    - Include relevant dev.to tags (4-5 tags maximum)
+    - Use internal linking opportunities where natural
+    - Add alt text concepts for any referenced images
+    - Ensure mobile-friendly formatting
+    
+    *Content Quality Signals:*
+    - Start with a hook that addresses reader's pain point or question
+    - Include actionable insights and practical examples
+    - Use data, statistics, or concrete examples when possible
+    - Address common questions or objections in the content
+    - Write for both beginners and experienced developers where applicable
 
     **ENDING REQUIREMENT:**
-    - Instead of a 'reference links' or 'internal linking' section, finish the blog with a short, impactful conclusion. 
-    - The conclusion should summarize the main points and leave the reader with a clear final thought or call to action.
-
-    **SEO REQUIREMENTS:**
-    - Write with SEO in mind: include clear headings (H1, H2, H3), use target keywords naturally
-    - Ensure meta description is concise, compelling, and keyword-rich
-    - Use short paragraphs, bullet points, and numbered lists where useful
+    - Instead of a 'reference links' or 'internal linking' section, finish with a short, impactful conclusion
+    - The conclusion should summarize key takeaways and include a clear call-to-action
+    - End with an engaging question or challenge for readers
 
   expected_output: >
-    ONLY publish-ready markdown content for a dev.to blog post with cover image.
+    ONLY publish-ready markdown content for a dev.to blog post with comprehensive SEO optimization.
     Must include:
-    - SEO-optimized title
-    - SEO-friendly meta description  
-    - Proper tags
-    - **cover_image:** URL from Pexels search
-    - Attribution for cover image in the article
-    - End with an engaging, concise conclusion in the final paragraph (not with a reference links section)
+    - SEO-optimized title (50-60 characters) with primary keyword
+    - SEO-friendly meta description (150-160 characters) with target keywords  
+    - 4-5 relevant tags for dev.to
+    - **cover_image:** URL from Pexels search (frontmatter only)
+    - Clear heading structure (H2 for main sections, H3 for subsections) - NO H1 heading in content
+    - Short, scannable paragraphs with bullet points and lists
+    - Natural keyword integration throughout content
+    - Actionable insights and practical examples
+    - End with an engaging, concise conclusion with call-to-action (not reference links)
+    
+    IMPORTANT: Do NOT include an H1 heading (# Title) in the markdown content body. The title should ONLY appear in the frontmatter. Start the content directly with an engaging opening paragraph, then use H2 (##) for main sections.
 
-    Your final answer MUST be a fully SEO-optimized dev.to article in markdown format, ending with a short, strong conclusion.
-
+      
 
 publishing_task:
   description: >

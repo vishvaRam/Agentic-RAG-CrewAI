@@ -93,8 +93,7 @@ class SearchAndEmbeddingTool(BaseTool):
             raw = self._yt_search._run(topic=query, max_results=5, days_back=90)
             data = json.loads(raw)
             videos: List[Dict[str, Any]] = data.get("videos", [])
-            rag_tool.add(self._yt_transcribe.TRANSCRIPT_FILE, data_type="text")
-            rag_added_status = True
+            
         except Exception as e:
             print("*"*50)
             print(f"Error searching YouTube: {e}")
@@ -106,7 +105,7 @@ class SearchAndEmbeddingTool(BaseTool):
             desc = v.get("description", "")
             try:
                 t_raw = self._yt_transcribe._run(
-                    video_id=vid, video_description=desc, language_preference="en"
+                    video_id=vid, video_description=desc, language_preference="en", topic=query
                 )
                 t_data = json.loads(t_raw)
                 transcripts.append(
@@ -119,7 +118,11 @@ class SearchAndEmbeddingTool(BaseTool):
                 )
             except Exception as e:
                 transcripts.append({"video_id": vid, "status": "error", "error": str(e)})
-
+                
+        transcript_file = f"output/transcriptions/transcript_{query}.txt"
+        rag_tool.add(transcript_file, data_type="text")
+        rag_added_status = True
+        
         return {"videos": videos, "transcripts": transcripts,"rag_transcript_added": rag_added_status}
 
 # Create tool instance

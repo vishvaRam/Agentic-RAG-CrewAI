@@ -128,3 +128,45 @@ publishing_task:
     - Article ID on Dev.to
     - Published status
     - Any error details if publishing failed
+
+
+social_media_post_task:
+  description: >
+    Jamie, create a professional LinkedIn post to promote the newly published blog article about "{topic}".
+    
+    **Requirements:**
+    - Extract the published blog URL from the Dev.to publishing results
+    - Use insights, hooks, and key points from the draft creation task for maximum relevance
+    - Create engaging LinkedIn post content (200-250 characters optimal)
+    - Include 2-4 relevant hashtags for maximum reach
+    - Add a compelling hook that encourages readers to click the link
+    - Use professional tone suitable for LinkedIn audience
+    - Include emojis sparingly for visual appeal
+    - End with a call-to-action question to drive engagement
+    
+    **LinkedIn Post Structure:**
+    1. Post content with attention-grabbing opening and value proposition
+    2. Leave one blank line
+    3. Published blog URL (plain text, no markdown formatting)
+    4. Leave one blank line  
+    5. Hashtags (2-4 maximum)
+    
+    **Formatting Requirements:**
+    - Use PLAIN TEXT only, NO markdown formatting
+    - NO backticks, NO brackets, NO markdown syntax
+    - Use proper line spacing between sections
+    - Format should be ready for direct copy-paste to LinkedIn
+
+  expected_output: >
+    Output only the LinkedIn post content in PLAIN TEXT format.
+    Do NOT use markdown formatting, backticks, or any special syntax.
+    Do NOT include any explanation, metadata, or field wrappers.
+    Use this exact structure:
+    
+    [Post content with hook and value proposition]
+    
+    [Plain text URL]
+    
+    [Hashtags]
+    
+    The output should be ready for direct copy-pasting to LinkedIn with proper spacing.

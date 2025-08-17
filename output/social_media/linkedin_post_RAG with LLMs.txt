@@ -1,0 +1,5 @@
+Are your LLMs prone to 'hallucinations'? 🤖 Discover how Retrieval-Augmented Generation (RAG) transforms LLMs into accurate, real-time powerhouses! Learn to mitigate inaccuracies, provide domain-specific answers, and boost efficiency. Ready to unlock their full potential?
+
+https://dev.to/vishva_murthy_4480fcb3d83/rag-with-llms-the-complete-guide-to-retrieval-augmented-generation-21k0
+
+#RAG #LLMs #AI #GenerativeAI

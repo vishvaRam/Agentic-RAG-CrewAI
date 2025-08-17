@@ -59,6 +59,17 @@ class BlogWritingCrew:
             allow_delegation=False,
             max_iter=3
         )
+    
+    @agent
+    def social_media_post_creator(self) -> Agent:
+        return Agent(
+            config=self.agents_config["social_media_post_creator"],  # type: ignore
+            llm=self.gemini_flash,
+            verbose=True,
+            allow_delegation=False,
+            max_iter=2
+        )
+
 
 
     @task
@@ -89,6 +100,15 @@ class BlogWritingCrew:
             output_file="output/publication/publishing_{topic}.json",
         )
     
+    @task
+    def social_media_post_task(self) -> Task:
+        return Task(
+            config=self.tasks_config["social_media_post_task"],  # type: ignore
+            agent=self.social_media_post_creator(),
+            context=[self.draft_creation_task(),self.publishing_task()],
+            output_file="output/social_media/linkedin_post_{topic}.txt",
+        )
+
 
     @crew
     def crew(self) -> Crew:

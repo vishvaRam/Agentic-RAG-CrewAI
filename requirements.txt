@@ -9,7 +9,6 @@ sentence-transformers
 
 # Google Gemini LLM
 google-generativeai
-litellm
 
 # YouTube Integration
 youtube-transcript-api

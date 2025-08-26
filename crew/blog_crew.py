@@ -5,7 +5,7 @@ from crewai import LLM, Agent, Crew, Process, Task  # noqa: E402
 from crewai.project import CrewBase, agent, crew, task# noqa: E402
 from tools.rag_tool import rag_tool# noqa: E402
 from tools.image_search_tool import pexels_cover_tool  # noqa: E402
-from tools.devto_publisher_tool import devto_publisher_tool
+from tools.devto_publisher_tool import devto_publisher_tool # noqa: E402
 from dotenv import load_dotenv  # noqa: E402
 load_dotenv()
 
@@ -17,14 +17,14 @@ class BlogWritingCrew:
     agents_config = "config/agents.yaml"
     tasks_config = "config/tasks.yaml"
 
-    def __init__(self):
+    def __init__(self): 
         self.rag_tool = rag_tool
         self.pexels_cover_tool = pexels_cover_tool
         self.devto_publisher_tool = devto_publisher_tool
         self.gemini_flash = LLM(
             model="gemini/gemini-2.5-flash",
             api_key=os.getenv("GEMINI_API_KEY"),
-            temperature=0.2,
+            temperature=0.01,
         )
 
     @agent
@@ -35,7 +35,7 @@ class BlogWritingCrew:
             llm=self.gemini_flash,
             verbose=True,
             allow_delegation=False,
-            max_iter=5,
+            max_iter=10,
         )
 
     @agent
@@ -46,7 +46,7 @@ class BlogWritingCrew:
             llm=self.gemini_flash,
             verbose=True,
             allow_delegation=True,
-            max_iter=8
+            max_iter=10
         )
     
     @agent
@@ -57,7 +57,7 @@ class BlogWritingCrew:
             llm=self.gemini_flash, 
             verbose=True,
             allow_delegation=False,
-            max_iter=3
+            max_iter=5
         )
     
     @agent
@@ -67,7 +67,7 @@ class BlogWritingCrew:
             llm=self.gemini_flash,
             verbose=True,
             allow_delegation=False,
-            max_iter=2
+            max_iter=5
         )
 
 
@@ -121,3 +121,4 @@ class BlogWritingCrew:
             max_rpm=40,            
             language="en",  # type: ignore
         )
+ 

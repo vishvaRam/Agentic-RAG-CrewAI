@@ -1,19 +1,42 @@
 draft_creation_task:
   description: >
-    Marcus, use ONLY the RAG Tool to extract insights and create a content blueprint for "{topic}".
+    Marcus, conduct intelligent research for "{topic}" using a dynamic, AI-driven approach.
     
-    **Requirements:**
-    - Query RAG Tool extensively about {topic}
-    - Ask: "What are the latest trends in {topic}?"
-    - Ask: "What are the benefits and challenges of {topic}?"
-    - Ask: "What do experts say about {topic}?"
-    - Ask: "What are practical applications of {topic}?"
+    **STEP 1: INTELLIGENT QUERY PLANNING**
+    Before making any RAG queries, analyze the topic "{topic}" and determine:
+    - What category does this topic fall into? (Technology, Business, Health, Education, etc.)
+    - What would be the most valuable angles for a {read_time}-minute read?
+    - What would the target dev.to audience want to know about this topic?
+    - What are likely knowledge gaps or misconceptions?
     
-    **Content Planning:**
-    - Approximate word count: {word_count} words
-    - Target read time: {read_time} minutes
-    - Create engaging content suitable for diverse audiences
-    - Plan for dev.to publishing platform (tech-friendly but accessible)
+    **STEP 2: PROGRESSIVE RAG RESEARCH** 
+    Based on your analysis, conduct 8-12 strategic RAG queries following this adaptive pattern:
+    
+    *Foundation Queries (3-4 queries):*
+    - Start with: "What is {topic} overview definition"
+    - Then: "Current state of {topic} 2024 2025 latest"
+    - Then: "Key benefits advantages of {topic}"
+    - Then: "Main challenges problems with {topic}"
+    
+    *Adaptive Deep-Dive (4-6 queries):*
+    Generate specific queries based on what you learned in foundation phase.
+    
+    Examples for different topic types:
+    - If tech product: "Technical specs", "User reviews", "Comparisons", "Pricing"
+    - If business concept: "Implementation strategies", "ROI studies", "Case studies", "Best practices"
+    - If educational topic: "Learning methods", "Expert opinions", "Common mistakes", "Resources"
+    
+    *Validation & Context (2-3 queries):*
+    - "Expert opinions research studies on {topic}"
+    - "Real world examples success stories {topic}"
+    - "Future trends predictions {topic}"
+    
+    **STEP 3: INTELLIGENT SYNTHESIS**
+    After each query, briefly note what you learned and how it shapes your next query.
+    Adapt your research strategy based on the quality and type of information you're finding.
+    
+    Remember: The goal is not just to gather information, but to discover the story, angles, and insights that will make your content uniquely valuable.
+
 
 
   expected_output: >

@@ -1,0 +1,45 @@
+research_and_embed_task:
+  description: >
+    Dr. Chen, conduct ONE comprehensive research session for "{topic}" using the Search & Embed tool.
+    
+    **CRITICAL REQUIREMENT:**
+    - Use the Search & Embed tool exactly ONCE with the topic: "{topic}"
+    - Do NOT make multiple tool calls - one comprehensive search covers everything
+    - The tool automatically handles both web search AND YouTube transcript extraction
+    
+    **Research Scope:**
+    - Target word count context: {word_count} words
+    - Target read time context: {read_time} minutes
+    - Focus on current trends, expert insights, practical applications
+    - Gather both technical depth and accessible explanations
+    
+    **What the tool will do automatically:**
+    1. Search Tavily for comprehensive web content about {topic}
+    2. Embed all found web pages into the RAG system
+    3. Search YouTube for relevant videos about {topic}
+    4. Extract and transcribe video content
+    5. Add all transcripts to the RAG knowledge base
+    
+    **Your task:**
+    - Make ONE tool call with query: "{topic}"
+    - Report the results including embedded sources count
+    - Confirm RAG system is populated and ready for content creation
+
+  expected_output: >
+    Research completion report containing:
+    
+    **Research Summary:**
+    - Total web sources successfully embedded in RAG
+    - Total web sources that failed to embed
+    - Total YouTube videos found and processed
+    - Total transcripts successfully added to RAG
+    
+    **Knowledge Base Status:**
+    - Confirmation that RAG system is populated
+    - Brief overview of content types gathered (web articles, video transcripts)
+    - Readiness status for {topic} content creation
+    
+    **Research Quality Indicators:**
+    - Diversity of sources (news, academic, practical guides, expert opinions)
+    - Content freshness and relevance to current trends
+    - Sufficient depth for {word_count}-word, {read_time}-minute article

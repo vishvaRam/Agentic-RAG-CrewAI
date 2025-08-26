@@ -39,7 +39,7 @@ class ResearchCrew:
         return Task(
             config=self.tasks_config["research_and_embed_task"],
             agent=self.research_specialist(),
-            output_file="output/research/research_report_{topic}.json",
+            output_file="output/research/research_report_{topic}.md",
         )
 
     @crew
